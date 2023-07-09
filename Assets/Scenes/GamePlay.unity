@@ -570,7 +570,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5350389463394170259, guid: 84f4f3a608c204d42871e905e04e19e8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5350389463394170259, guid: 84f4f3a608c204d42871e905e04e19e8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -603,6 +603,18 @@ PrefabInstance:
     - target: {fileID: 5350389463394170259, guid: 84f4f3a608c204d42871e905e04e19e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5350389463394299670, guid: 84f4f3a608c204d42871e905e04e19e8, type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5350389463394299670, guid: 84f4f3a608c204d42871e905e04e19e8, type: 3}
+      propertyPath: m_Mass
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5350389463394299671, guid: 84f4f3a608c204d42871e905e04e19e8, type: 3}
+      propertyPath: jumpForce
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 5350389463394396595, guid: 84f4f3a608c204d42871e905e04e19e8, type: 3}
       propertyPath: m_Name
