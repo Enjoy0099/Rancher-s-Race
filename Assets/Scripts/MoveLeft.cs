@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
@@ -16,6 +17,8 @@ public class MoveLeft : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Speed();
+
         if (!playerScript.gameOver)
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
@@ -25,4 +28,18 @@ public class MoveLeft : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    /*void Speed()
+    {
+        if (Input.GetKey(KeyCode.D))
+        {
+            speed = 60f;
+            leftBound = -10f;
+        }
+        else
+        {
+            speed = 30f;
+            leftBound = -15f;
+        }
+    }*/
 }

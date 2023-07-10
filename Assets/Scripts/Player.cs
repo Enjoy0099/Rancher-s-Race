@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,8 +11,10 @@ public class Player : MonoBehaviour
 
     private int doubleJump = 0;
 
+    private float score;
     public float jumpForce = 10;
-    public float gravityModifier;
+    [SerializeField] private float gravityModifier;
+
     //public bool isOnGround = true;
     public bool gameOver;
 
@@ -22,13 +25,18 @@ public class Player : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip crashSound;
 
+
+
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         Physics.gravity *= gravityModifier;
-        
+        score = 0;
+        gravityModifier = 2f;
+
+        InvokeRepeating("GameScore", 0f, 1f);
     }
 
     // Update is called once per frame
@@ -42,8 +50,30 @@ public class Player : MonoBehaviour
             dirtParticle.Stop();
             doubleJump++;
             playerAudio.PlayOneShot(jumpSound, 1f);
-            Debug.Log(doubleJump);
         }
+
+        /*if(Input.GetKey(KeyCode.D) && !gameOver)
+        {
+            playerAnim.speed = 2f;
+            score += 2 * Time.deltaTime;
+        }
+        else if(!gameOver)
+        {
+            playerAnim.speed = 1f;
+            score += 1 * Time.deltaTime;
+        }*/
+
+        if (Input.GetKey(KeyCode.D) && !gameOver)
+        {
+            Time.timeScale = 2f;
+            score += 2 * Time.deltaTime;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            score += 1 * Time.deltaTime;
+        }
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -63,5 +93,11 @@ public class Player : MonoBehaviour
             dirtParticle.Stop();
             playerAudio.PlayOneShot(crashSound, 1f);
         }
+    }
+
+    void GameScore()
+    {
+        if (!gameOver)
+            Debug.Log((int)score);
     }
 }
