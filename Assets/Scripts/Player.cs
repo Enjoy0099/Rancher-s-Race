@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -13,7 +11,7 @@ public class Player : MonoBehaviour
 
     private float score;
     public float jumpForce = 10;
-    [SerializeField] private float gravityModifier;
+    public float gravityModifier;
 
     //public bool isOnGround = true;
     public bool gameOver;
@@ -21,12 +19,16 @@ public class Player : MonoBehaviour
     public ParticleSystem explosionParticle;
     public ParticleSystem dirtParticle;
 
-    public AudioSource playerAudio;
+    private AudioSource playerAudio;
     public AudioClip jumpSound;
     public AudioClip crashSound;
 
+    private float duration = 1f;
+    private float timeElapsed = 0f;
+    private Vector3 startPos, endPos;
 
-
+    public TextMeshProUGUI score_Text;
+    
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -34,44 +36,50 @@ public class Player : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
         Physics.gravity *= gravityModifier;
         score = 0;
-        gravityModifier = 2f;
-
+        startPos = transform.position;
+        endPos = Vector3.zero;
         InvokeRepeating("GameScore", 0f, 1f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && !gameOver && doubleJump < 2) 
-        {
-            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            playerAnim.SetTrigger(NameManager.JUMP_ANIM_PARAMETER);
-            //isOnGround = false;
-            dirtParticle.Stop();
-            doubleJump++;
-            playerAudio.PlayOneShot(jumpSound, 1f);
-        }
-
-        /*if(Input.GetKey(KeyCode.D) && !gameOver)
-        {
-            playerAnim.speed = 2f;
-            score += 2 * Time.deltaTime;
-        }
-        else if(!gameOver)
-        {
-            playerAnim.speed = 1f;
-            score += 1 * Time.deltaTime;
-        }*/
-
-        if (Input.GetKey(KeyCode.D) && !gameOver)
-        {
-            Time.timeScale = 2f;
-            score += 2 * Time.deltaTime;
-        }
+        if (timeElapsed < duration)
+            PlayerMoveAtStart();
         else
         {
-            Time.timeScale = 1f;
-            score += 1 * Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.Space) && !gameOver && doubleJump < 2)
+            {
+                playerRb.velocity = Vector3.zero;
+                playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                playerAnim.SetTrigger(NameManager.JUMP_ANIM_PARAMETER);
+                //isOnGround = false;
+                dirtParticle.Stop();
+                doubleJump++;
+                playerAudio.PlayOneShot(jumpSound, 1f);
+            }
+
+            /*if(Input.GetKey(KeyCode.D) && !gameOver)
+            {
+                playerAnim.speed = 2f;
+                score += 2 * Time.deltaTime;
+            }
+            else if(!gameOver)
+            {
+                playerAnim.speed = 1f;
+                score += 1 * Time.deltaTime;
+            }*/
+
+            if (Input.GetKey(KeyCode.D) && !gameOver)
+            {
+                Time.timeScale = 2f;
+                score += 2 * Time.deltaTime;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                score += 1 * Time.deltaTime;
+            }
         }
         
     }
@@ -95,9 +103,23 @@ public class Player : MonoBehaviour
         }
     }
 
+    void PlayerMoveAtStart()
+    {
+        float t = timeElapsed / duration;
+        transform.position = Vector3.Lerp(startPos, endPos, t);
+        timeElapsed += Time.deltaTime;
+        if(timeElapsed > duration)
+            transform.position = new Vector3(0f, 0f, 0f);
+    }
+
     void GameScore()
     {
         if (!gameOver)
-            Debug.Log((int)score);
+            score_Text.text = ((int)score).ToString();
+    }
+
+    public void LoadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

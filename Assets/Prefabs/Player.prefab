@@ -312,8 +312,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4919454, y: 3.0332267, z: 1.1427498}
-  m_Center: {x: 0.013923049, y: 1.5148236, z: 0.020992637}
+  m_Size: {x: 1.4919454, y: 3.079826, z: 1.1427498}
+  m_Center: {x: 0.013923049, y: 1.4915239, z: 0.020992637}
 --- !u!114 &5350389463394299671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,15 +326,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73771086a79dca46b80eeca72435bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 700
+  jumpForce: 800
   gravityModifier: 2
-  isOnGround: 1
   gameOver: 0
   explosionParticle: {fileID: 3837993417158384253}
   dirtParticle: {fileID: 7974198585523834215}
-  playerAudio: {fileID: 0}
   jumpSound: {fileID: 8300000, guid: 08ab7053d586c458db3774d33c141a4b, type: 3}
   crashSound: {fileID: 8300000, guid: e7ee25a47d63b46cdaf65480d62b405c, type: 3}
+  score_Text: {fileID: 0}
 --- !u!82 &798012000
 AudioSource:
   m_ObjectHideFlags: 0
