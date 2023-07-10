@@ -8,9 +8,11 @@ public class Player : MonoBehaviour
     private Rigidbody playerRb;
     private Animator playerAnim;
 
+    private int doubleJump = 0;
+
     public float jumpForce = 10;
     public float gravityModifier;
-    public bool isOnGround = true;
+    //public bool isOnGround = true;
     public bool gameOver;
 
     public ParticleSystem explosionParticle;
@@ -32,13 +34,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && isOnGround && !gameOver) 
+        if(Input.GetKeyDown(KeyCode.Space) && !gameOver && doubleJump < 2) 
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             playerAnim.SetTrigger(NameManager.JUMP_ANIM_PARAMETER);
-            isOnGround = false;
+            //isOnGround = false;
             dirtParticle.Stop();
+            doubleJump++;
             playerAudio.PlayOneShot(jumpSound, 1f);
+            Debug.Log(doubleJump);
         }
     }
 
@@ -46,8 +50,10 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.CompareTag(NameManager.GROUND_TAG))
         {
-            isOnGround = true;
-            dirtParticle.Play();
+            //isOnGround = true;
+            doubleJump = 0;
+            if(!gameOver)
+                dirtParticle.Play();
         }
         else if(collision.gameObject.CompareTag(NameManager.OBSTACLE_TAG))
         {
