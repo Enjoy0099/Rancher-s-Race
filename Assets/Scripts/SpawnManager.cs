@@ -5,9 +5,9 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
 
-    public GameObject obstaclePrefab;
+    public GameObject[] obstaclePrefab;
     private Vector3 spawnPos = new Vector3(25, 0, 0);
-    private float startDelay = 2, repeatRate = 2f;
+    private float startDelay = 2f, repeatRate = 2f;
     private Player playerScript;
 
     // Start is called before the first frame update
@@ -25,9 +25,11 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnObstacle()
     {
+        int random = Random.Range(0, obstaclePrefab.Length);
+
         if(!playerScript.gameOver)
         {
-            Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+            Instantiate(obstaclePrefab[random], spawnPos, obstaclePrefab[random].transform.rotation);
         }
         
     }

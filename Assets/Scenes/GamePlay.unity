@@ -552,7 +552,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c1a671e0a568d4fb452f82e76e0b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclePrefab: {fileID: 5709072425131029754, guid: 3782b70e43521ad47b509618c6406963, type: 3}
+  obstaclePrefab:
+  - {fileID: 8375341513532440044, guid: 093260916360c8f47aedd5f2ba0225cc, type: 3}
+  - {fileID: 1462967159008432414, guid: 0dceb33792d12274ea3b33c744ef54f1, type: 3}
+  - {fileID: 1943636924354525805, guid: 49717c780e24b3043b9f53a16cfaab46, type: 3}
+  - {fileID: 5709072425131029754, guid: 3782b70e43521ad47b509618c6406963, type: 3}
+  - {fileID: 308707658778288684, guid: 725359781e4859343828b5df5fc22025, type: 3}
+  - {fileID: 4803425473342648544, guid: 38a36276692566b4193bb56846428d4e, type: 3}
+  - {fileID: 64029375704044657, guid: cd50e87022cc8cc44843cb9e6b216855, type: 3}
+  - {fileID: 2785363525326745467, guid: 736d54b43ab1bf348a507198a44fd445, type: 3}
+  - {fileID: 1986954769367227204, guid: 69572df241110b14babae4cf15337a1b, type: 3}
 --- !u!1 &2014335011
 GameObject:
   m_ObjectHideFlags: 0
