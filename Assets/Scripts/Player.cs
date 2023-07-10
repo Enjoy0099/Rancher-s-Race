@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,10 +8,10 @@ public class Player : MonoBehaviour
     private Rigidbody playerRb;
     private Animator playerAnim;
 
-    private int doubleJump = 0;
+    private int doubleJump;
 
     private float score;
-    public float jumpForce = 10;
+    public float jumpForce;
     public float gravityModifier;
 
     //public bool isOnGround = true;
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour
         startPos = transform.position;
         endPos = Vector3.zero;
         InvokeRepeating("GameScore", 0f, 1f);
+        doubleJump = 0;
     }
 
     // Update is called once per frame
@@ -50,6 +52,7 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space) && !gameOver && doubleJump < 2)
             {
+                Debug.Log(Physics.gravity);
                 playerRb.velocity = Vector3.zero;
                 playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 playerAnim.SetTrigger(NameManager.JUMP_ANIM_PARAMETER);
@@ -120,6 +123,13 @@ public class Player : MonoBehaviour
 
     public void LoadLevel()
     {
+        Physics.gravity = new Vector3(0f, -9.81f, 0f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ExitGame()
+    {
+        Physics.gravity = new Vector3(0f, -9.81f, 0f);
+        Application.Quit();
     }
 }
